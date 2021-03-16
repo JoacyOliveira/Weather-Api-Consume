@@ -1,0 +1,62 @@
+{% load static %}
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Weather</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.min.css  ' %}">
+</head>
+
+<body>
+    <!-- Start: Navigation with Button -->
+    <nav class="navbar navbar-light navbar-expand-md shadow-sm navigation-clean-button" style="background-color: rgb(255,255,255);">
+        <div class="container"><a class="navbar-brand" href="#" style="font-size: 29px;">Como esta o tempo?<br></a></div>
+    </nav>
+    <!-- End: Navigation with Button -->
+    <!-- Start: Features Boxed -->
+    <div class="features-boxed">
+        <div class="container" style="padding-top: 30px;">
+            <!-- Start: Intro -->
+            <form method="POST">
+                {%csrf_token%}
+                {% if message %}
+            <div class="alert {{ message_class }}" role="alert">
+                  {{message}}
+                </div>
+                {% endif %}
+            <div class="text-center intro" style="margin-top: 0px;">
+                <input name="name" type="text" style="height: 40px;width: 100%;margin-bottom: 10px;" placeholder="Nome Da Cidade">
+                <button class="btn btn-primary" type="submit" style="height: 40px;">Adicionar Cidade</button>
+            </div>
+                </form>
+            <!-- End: Intro -->
+            <!-- Start: Features -->
+            <div class="row justify-content-center features">
+                {% for city_weather in weather_data %}
+                <div class="col-sm-6 col-md-5 col-lg-4 item">
+                    <div class="shadow-sm box">
+                        <div class="row">
+                        <div class="col d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-end justify-content-sm-end justify-content-md-end justify-content-lg-end justify-content-xl-end">
+                            <a href="{% url 'delete_city' city_weather.city %}"><i class="fa fa-remove" style="font-size: 27px;color: rgb(255,0,0);"></i></a>
+                        </div>
+                    </div>
+                        <img src="http://openweathermap.org/img/w/{{city_weather.icon}}.png">
+                        <h3 class="name" style="font-size: 25px;">{{city_weather.city}}</h3>
+                        <p class="description" style="font-size: 21px;">{{city_weather.temperature}}°C</p>
+                        <p class="description" style="font-size: 16px;">{{city_weather.description}}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <!-- End: Features -->
+        </div>
+    </div>
+    <!-- End: Features Boxed -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
