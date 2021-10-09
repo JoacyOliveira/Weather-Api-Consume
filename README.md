@@ -7,7 +7,7 @@ Weather Api Consume - Projeto utilizado para aprendizado de consumo de apis
 
 ### Clone o projeto
 ```
-git clone https://gitlab.com/AiZnn/weather-api-consume.git
+git clone https://github.com/JoacyOliveira/Weather-Api-Consume.git
 cd weather-api-consume
 ```
 
